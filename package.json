@@ -2,7 +2,7 @@
 	"name": "utils-extension",
 	"displayName": "utils-extension",
 	"description": "this extension will help developers create tests, mocks, components and general utils on Salesforce.",
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"engines": {
 		"vscode": "^1.56.0"
 	},
@@ -17,11 +17,11 @@
 		"commands": [
 			{
 				"command": "utils-extension.createFile",
-				"title": "Triscal_Dev: Create File"
+				"title": "T_Dev: Create File"
 			},
 			{
 				"command": "utils-extension.createFolder",
-				"title": "Triscal_Dev: Create Folder"
+				"title": "T_Dev: Create Folder"
 			}
 		],
 		"menus": {
