@@ -27,19 +27,19 @@ const createFile = require('./src/utils/createFile/createFile')
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	console.log('Running "utils-extension"...');
-	
-	let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => createFile.default())
-	let _createFolder = vscode.commands.registerCommand('utils-extension.createFolder', () => createFolder.default())
+    console.log('Running "utils-extension"...');
 
-	context.subscriptions.push(_createFile);
-	context.subscriptions.push(_createFolder);
+    let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => createFile.default(vscode.workspace.workspaceFolders[0].uri.path.toString().split(":")[1]+'/testandoRoot'))
+    let _createFolder = vscode.commands.registerCommand('utils-extension.createFolder', () => createFolder.default())
+
+    context.subscriptions.push(_createFile);
+    context.subscriptions.push(_createFolder);
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
-	activate,
-	deactivate
+    activate,
+    deactivate
 }
