@@ -18,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 
 const createFolder = require('./src/utils/createFolder/createFolder')
-const createFile = require('./src/utils/createFile/createFile')
+const FileActions = require('./src/utils/createFile/createFile')
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -29,7 +29,8 @@ const createFile = require('./src/utils/createFile/createFile')
 function activate(context) {
     console.log('Running "utils-extension"...');
 
-    let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => createFile.default(vscode.workspace.workspaceFolders[0].uri.path.toString().split(":")[1]+'/testandoRoot'))
+    const fileAct = FileActions.default.File;
+    let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => fileAct.selectFolder()(fileAct.showFileNameInput(fileAct.createFileByName())))
     let _createFolder = vscode.commands.registerCommand('utils-extension.createFolder', () => createFolder.default())
 
     context.subscriptions.push(_createFile);
