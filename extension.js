@@ -17,8 +17,9 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 
-const createFolder = require('./src/utils/createFolder/createFolder')
-const FileActions = require('./src/utils/createFile/createFile')
+const createFolder = require('./src/utils/createFolder/createFolder');
+const FileActions = require('./src/utils/createFile/createFile');
+const triggerContent = require('./src/fileCodes/apex/trigger/triggerContent');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -28,9 +29,14 @@ const FileActions = require('./src/utils/createFile/createFile')
  */
 function activate(context) {
     console.log('Running "utils-extension"...');
+    
+    const selectFolderAct = FileActions.default.selectFolder();
+    const showFileNameInputAct = FileActions.default.showFileNameInput;
+    const createFileByNameAct = FileActions.default.createFileByName;
 
-    const fileAct = FileActions.default.File;
-    let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => fileAct.selectFolder()(fileAct.showFileNameInput(fileAct.createFileByName())))
+    let fileData = triggerContent.default('Jorge')
+    
+    let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => selectFolderAct(showFileNameInputAct(createFileByNameAct(fileData))))
     let _createFolder = vscode.commands.registerCommand('utils-extension.createFolder', () => createFolder.default())
 
     context.subscriptions.push(_createFile);

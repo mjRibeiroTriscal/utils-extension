@@ -17,11 +17,11 @@
 		"commands": [
 			{
 				"command": "utils-extension.createFile",
-				"title": "T_Dev: Create File"
+				"title": "TDev: Create File"
 			},
 			{
 				"command": "utils-extension.createFolder",
-				"title": "T_Dev: Create Folder"
+				"title": "TDev: Create Folder"
 			}
 		],
 		"menus": {
