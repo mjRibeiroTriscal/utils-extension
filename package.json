@@ -22,16 +22,29 @@
 			{
 				"command": "utils-extension.createFolder",
 				"title": "TDev: Create Folder"
+			},
+			
+			{
+				"command": "utils-extension.trigger",
+				"title": "TDev: Trigger"
+			},
+			{
+				"command": "utils-extension.triggerFactory",
+				"title": "TDev: Trigger Factory"
+			},
+			{
+				"command": "utils-extension.triggerTR",
+				"title": "TDev: Trigger TR"
+			},
+			{
+				"command": "utils-extension.triggerSDK",
+				"title": "TDev: Trigger SDK"
+			},
+			{
+				"command": "utils-extension.triggerMetaData",
+				"title": "TDev: Trigger MetaData"
 			}
-		],
-		"menus": {
-			"explorer/context": [
-				{
-					"command": "utils-extension.createFile",
-					"when": "1==1"
-				}
-			]
-		}
+		]
 	},
 	"scripts": {
 		"lint": "eslint .",

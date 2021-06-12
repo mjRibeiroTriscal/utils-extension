@@ -19,7 +19,7 @@ const path = require('path');
 
 const createFolder = require('./src/utils/createFolder/createFolder');
 const FileActions = require('./src/utils/createFile/createFile');
-const triggerContent = require('./src/fileCodes/apex/trigger/triggerContent');
+// const triggerContent = require('./src/fileCodes/apex/trigger/triggerContent');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -29,22 +29,38 @@ const triggerContent = require('./src/fileCodes/apex/trigger/triggerContent');
  */
 function activate(context) {
     console.log('Running "utils-extension"...');
-    
-    const selectFolderAct = FileActions.default.selectFolder();
-    const showFileNameInputAct = FileActions.default.showFileNameInput;
-    const createFileByNameAct = FileActions.default.createFileByName;
 
-    let fileData = triggerContent.default('Jorge')
+    let rootPath = vscode.workspace.workspaceFolders[0].uri.path.toString().split(":")[1]
     
-    let _createFile = vscode.commands.registerCommand('utils-extension.createFile', () => selectFolderAct(showFileNameInputAct(createFileByNameAct(fileData))))
+    let _createFile = createFileAction(rootPath, 'utils-extension.createFile');
+    let _trigger = createFileAction(rootPath, 'utils-extension.trigger');
+    let _triggerFactory = createFileAction(rootPath, 'utils-extension.triggerFactory');
+    let _triggerTR = createFileAction(rootPath, 'utils-extension.triggerTR');
+    let _triggerSDK = createFileAction(rootPath, 'utils-extension.triggerSDK');
     let _createFolder = vscode.commands.registerCommand('utils-extension.createFolder', () => createFolder.default())
 
     context.subscriptions.push(_createFile);
+    context.subscriptions.push(_trigger);
+    context.subscriptions.push(_triggerFactory);
+    context.subscriptions.push(_triggerTR);
+    context.subscriptions.push(_triggerSDK);
     context.subscriptions.push(_createFolder);
 }
 
 // this method is called when your extension is deactivated
-function deactivate() { }
+function deactivate(){}
+
+let createFileAction = (rootPath, cmdToRegister) => {
+    let folder = 'force-app/main/default'
+    const selectFolderAct = FileActions.default.selectFolder(`${rootPath}/${folder}`);
+    const showFileNameInputAct = FileActions.default.showFileNameInput;
+    const createFileByNameAct = FileActions.default.createFileByName;
+    
+    if(cmdToRegister == "utils-extension.createFile")
+    { return vscode.commands.registerCommand(cmdToRegister, () => selectFolderAct(showFileNameInputAct(createFileByNameAct('', cmdToRegister, `${rootPath}/${folder}`), false, "Nome do arquivo. (Ex.: GerarLogs.cls)")))}
+    else
+    { return vscode.commands.registerCommand(cmdToRegister, () => showFileNameInputAct(createFileByNameAct('cls', cmdToRegister), false, 'Nome do arquivo. (Ex.: GerarLogs)')(folder)); }
+}
 
 module.exports = {
     activate,
